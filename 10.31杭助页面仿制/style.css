@@ -1,0 +1,111 @@
+/* 整体布局 */
+body{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: max-content;
+    border: 2px solid grey;
+}
+/* 标题样式 */
+h1{
+    display: flex;
+    flex-direction: column;
+    /*背景的渐变色*/
+    background: linear-gradient(to bottom right,rgb(167, 219, 238),rgb(103, 141, 212));
+    color: white;
+    width: 100%;
+    margin-top: 0;
+    padding: 2rem;
+    padding-bottom: 1rem;
+    box-sizing: border-box;/*防止padding溢出*/
+    border-bottom-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+}
+.header{
+    font-size: 1rem;
+}
+/* id选择器 */
+#continue{
+    margin-top: 1rem;
+    color: skyblue;
+    background-color: white;
+    border: 5px solid white;
+    border-radius: 1rem;
+    padding: 5px;
+    width: 4rem;
+}
+#continue:hover{
+    color: violet;
+}
+#below{
+    font-size: 0.4rem;
+    margin-top: 3rem;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
+}
+/* 大主体背景色 */
+.main{
+    background-color: skyblue;
+}
+/* 数据流量 */
+.tag{
+    border-left: 0.5rem solid rgb(120, 216, 82);
+    padding: 0.5rem;
+    margin-top: -5rem;
+    margin-left: -5rem;
+    margin-bottom: 2rem;
+}
+/* 主体样式 */
+.box{
+    border-bottom-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+    border: 6rem solid white;
+    background-color: white;
+    width: 100%;
+    box-sizing: border-box;
+}
+/* 主要信息-样式 */
+.idea{
+    position:relative;
+    margin-bottom: 1rem;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+/*选择idea类的奇数项*/
+.idea:nth-of-type(odd){
+    flex-direction: row;
+    text-align: right;
+}
+/*选择idea类的偶数项*/
+.idea:nth-of-type(even){
+    flex-direction: row-reverse;
+    text-align: left;
+}
+.idea:last-child{
+    margin-bottom: -3rem;
+}
+/* 图片样式 */
+.idea>img{
+    vertical-align:middle;/*设置图片与文本的对齐方式*/
+    opacity: 65%;
+}
+.idea>img:nth-child(odd){
+    margin-left: -2rem;
+    margin-right: 2rem;
+}
+.idea>img:nth-child(even){
+    margin-left: 2rem;
+}
+/* 页脚 */
+.footer{
+    color: white;
+    width:100%;
+    text-align: center;
+}
+
+
+
+

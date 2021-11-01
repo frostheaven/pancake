@@ -1,0 +1,106 @@
+html 	{ 
+    min-width: 1210px;
+    background-color: #fdfcf8;
+    overflow:scroll;
+    overflow-x:hidden;
+    }
+
+html>body{
+    margin-left: 12px;
+}
+
+    h1{
+    font-size: 50px;
+    border: solid  20px orange;
+}
+h2{
+    text-align: left;
+}
+h3{
+    text-align: left;
+}
+h2, h3, h4, h5, h6, em{
+	font-weight: bold;
+}
+#title{
+    color: rgb(85, 224, 178);
+}
+
+.include{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.container{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+	width: 1304px;
+	margin: 0;
+	padding: 0;
+	position: relative;
+}
+.box{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+    color: grey;
+    background-color: rgb(216, 212, 212);
+    font-size: 150%;
+    height: 48px;
+    width: 1273px;
+	margin: 0;
+	padding: 0;
+	position: relative;
+
+}
+
+.sidebar{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    font-size:15px;
+    margin: 0 0 0 6px;
+	padding: 5px;
+	border: solid 1px rgb(211, 208, 208);
+	width: 180px;
+	background : transparent;
+}
+ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    
+}
+
+li:hover{
+    background-color: grey;
+    color: ivory;
+}
+.idea{
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    margin: 0;
+		padding: 30px 0 0 0;
+		border: 0;
+		width: 850px;
+		background: transparent;
+}
+.idea>div{
+    width: 810px;
+	margin: 0 0 0 25px;
+	padding: 30px 0 32px 0;
+	border:0;
+	border-bottom: 1px solid #aaa;
+}
+.sidebar>div{
+	float: left;
+	margin: 0;
+	padding: 0;
+	width: 180px;
+	background: transparent;		
+}
