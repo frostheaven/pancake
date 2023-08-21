@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入Vue -->
+    <script src="./js/Vue2.js/vue.js"></script>
+    <!-- 引入Axios -->
+    <script src="./js/axios.min.js"></script>
+    <script src="./js/Home.js"></script>
+    <link rel="stylesheet" href="./css/Home.css">
+    <!-- 修改页签icon logo -->
+    <link rel="shortcut icon" type="image/x-icon" href="./img/favicon/tb__icon.jpg">
+    </link>
+    <title>淘宝网 - 淘！我喜欢</title>
+</head>
+
+<body class="taobao">
+
+    <div id="root">
+        <!-- 菜单栏 -->
+        <div class="menu">
+            <div class="site-nav-edge"></div>
+            <div class="site-nav">
+                <div class="site-nav-menu-hd">
+                    <span>中国大陆</span>
+                </div>
+                <div class="site-nav-menu-hd">
+                    <span>手机逛淘宝</span>
+                </div>
+                <div class="site-nav-menu-hd">
+                    <span>网页无障碍</span>
+                </div>
+                <div class="site-nav-menu-hd">
+                    <span>我的淘宝</span>
+                </div>
+                <div class="site-nav-menu-hd">
+                    <span>购物车</span>
+                </div>
+                <div class="site-nav-menu-hd">
+                    <span>收藏夹</span>
+                </div>
+                <div class="site-nav-menu-hd">
+                    <span>商品分类</span>
+                    <span style="margin-left: 15px;">免费开店</span>
+                </div>
+                <div class="site-nav-pipe" style="color: #dad4d4da;">|</div>
+                <div class="site-nav-menu-hd">
+                    <span>千牛卖家中心</span>
+                </div>
+                <div class="site-nav-menu-hd">
+                    <span>联系客服</span>
+                </div>
+            </div>
+            <div class="site-nav-edge"></div>
+        </div>
+
+        <!-- 搜索栏 -->
+        <div class="top J_Top">
+            <div class="top-wrap clearfix">
+                <div class="tbh-logo J_Module tb-pass" data-name="logo">
+                    <div class="logo">
+                        <h1>
+                            <a href="https://www.taobao.com/" role="img" class="logo-bd clearfix">淘宝网</a>
+
+                        </h1>
+                        <h2 aria-hidden="true"><a class="clearfix" href="https://www.taobao.com/">淘宝网</a></h2>
+                    </div>
+                </div>
+                <div class="tbh-search J_Module" data-name="search">
+                    <div class="search-wrap">
+                        <div class="search-bd search-suggest search-suggest-group" id="J_Search">
+                            <div data-sg-type="tab">
+                                <ul class="search-suggest-tabs">
+                                    <li class="search-suggest-tabs-tab selected" data-value="item" name=宝贝">宝贝
+                                        <div class="search-tab-icon">
+                                            <i><em></em><span></span></i>
+                                        </div>
+                                    </li>
+                                    <li class="search-suggest-tabs-tab" data-value="tmall" name=天猫">天猫</li>
+                                    <li class="search-suggest-tabs-tab" data-value="shop" name=店铺">店铺</li>
+                                </ul>
+                            </div>
+                            <form data-sg-type="form" target="_top" name="search" id="J_TSearchForm"
+                                class="search-panel-focused">
+                                <i class="search-split"></i>
+                                <div class="search-button"><button class="btn-search tb-bg" type="submit" @click="search">搜索</button>
+                                </div>
+                                <div data-sg-type="placeholder" style="left: 11px;" v-show="!searchInfo.length && !isSearching" @click="searchFocus">在此键入商品名称</div>
+                                <div data-sg-type="combobox" class="search-suggest-combobox">
+                                    <input id="q" name="q" aria-label="请输入搜索文字" accesskey="s" autofocus="true"
+                                        autocomplete="off" aria-haspopup="true" aria-combobox="list" role="combobox"
+                                        x-webkit-grammar="builtin:translate" v-model="searchInfo" @keyup.enter="search"
+                                        @focus="searchIn" @blur="searchOut" ref="searchBox">
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="search-ft J_SearchFt clearfix">
+                            <div class="J_TbSearchContent J_HotWord">
+                                <div class="search-hots">
+                                    <div class="search-hots-lines">
+                                        <div class="search-hots-fline" data-spm-ab="fline">
+                                            <a>新款连衣裙</a>
+                                            <a>四件套</a>
+                                            <a>潮流T恤</a>
+                                            <a>时尚女鞋</a>
+                                            <a>短裤</a>
+                                            <a>半身裙</a>
+                                            <a>男士外套</a>
+                                            <a>墙纸</a>
+                                            <a>行车记录仪</a>
+                                            <a>新款男鞋</a>
+                                            <a>时尚女包</a>
+                                            <a>沙发</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="J_TmallSearchContent J_HotWord J_TmallHotWord tmall-hot-word"
+                                data-spm-ab="tmallHotWords">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 展示栏 -->
+        <div class="main clearfix">
+            <!-- 分类 -->
+            <div class="catelogue"  @mouseover="displayAllCate" @mouseleave="closeCate" >
+                <div class="catelogue_hd">
+                    分类
+                </div>
+                <div class="catelogue_items">
+                    <div class="catelogue_item">女装 / 内衣 / 奢品</div>
+                    <div class="catelogue_item">女鞋 / 男鞋 / 箱包</div>
+                    <div class="catelogue_item">美妆 / 饰品 / 洗护</div>
+                    <div class="catelogue_item">男装 / 运动 / 百货</div>
+                    <div class="catelogue_item">手机 / 数码 / 企业礼品</div>
+                    <div class="catelogue_item">家装 / 电器 / 车品</div>
+                    <div class="catelogue_item">食品 / 生鲜 / 母婴</div>
+                    <div class="catelogue_item">医药 / 保健 / 进口</div>
+                </div>
+            </div>
+            <!-- 所有商品分类 -->
+            <div v-show="ifShow" class="cate_pop clearfix" @mouseover="displayAllCate" @mouseleave="closeCate" style="z-index: 1;">
+                <div class="cate_part clearfix">
+                    <div class="cate_part_col">
+                        <ul class="cate_part_channel">
+                            <li v-for="item in allCate" :key="item.id"
+                                class="cate_part_channel_child"
+                                @mouseover.stop="showDesCate(item.id)"
+                                :ref="item.id"
+                            >{{item.name}}</li>
+                        </ul>
+                        <div class="cate_detail">
+                            <!-- 第一层遍历——与大标题对应的中标题 -->
+                            <div 
+                                class="cate_detail_item"
+                                v-for="item in allCate[desCateIn].children" :key="item.cat_id"
+                            >
+                                <div class="cate_detail_tit">
+                                    <div class="cate_detail_tit_lk">
+                                        {{item.cat_name}}
+                                    </div>
+                                </div>
+                                <div class="cate_detail_con">
+                                    <!-- 第二层遍历——小标题 -->
+                                    <div class="cate_detail_con_lk"
+                                        v-for="minItem in item.children" :key="minItem.cat_id"
+                                    >
+                                        {{minItem.cat_name}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧主展示 -->
+            <div class="main-show">
+                <!-- 展示菜单栏 -->
+                <div class="main-top">
+                    <div class="main-top-items main-top-TianMao" style="color:#FF0036;"><strong>天猫</strong></div>
+                    <div class="main-top-pipe">|</div>
+                    <div class="main-top-items main-top-JuHuaSuan" style="color:#FF0036;"><strong>聚划算</strong></div>
+                    <div class="main-top-pipe">|</div>
+                    <div class="main-top-items main-top-TianMaoMarket" style="color:#33c900;"><strong>天猫超市</strong>
+                    </div>
+                    <div class="main-top-pipe">|</div>
+                    <div class="main-top-items">司法拍卖</div>
+                    <div class="main-top-pipe">|</div>
+                    <div class="main-top-items">飞猪旅行</div>
+                    <div class="main-top-pipe">|</div>
+                    <div class="main-top-items">天天特拍</div>
+                    <div class="main-top-pipe">|</div>
+                    <div class="main-top-items">极有家</div>
+                    <div class="main-top-pipe">|</div>
+                    <div class="main-top-items">淘宝直播</div>
+                </div>
+                <!-- 内容 -->
+                <div class="main-inner">
+                    <!-- 轮播图 -->
+                    <div class="video-wrapper">
+                        <!-- url中要加入单引号！！！！！ -->
+                        <div :class="['video',addAniClass]"
+                            :style="`background-image: url('${carouselImg[currentIndex]}')`"
+                        >
+                        </div>
+                    </div>
+                    <div class="change-image-box">
+                        <button @click="gotoPreImg" class="change-btn">◁</button>
+                        <button @click="stopChangeImg" 
+                                :class="['change-btn',(this.pauseBtn.pause)? 'changed-btn':'']"
+                                :style="{opacity: this.pauseBtn.opacity}"
+                        >◉
+                        </button>
+                        <button @click="gotoNextImg" class="change-btn">▷</button>
+                    </div>
+                    <!-- 用户登录 -->
+                    <div class="tbh-user J_Module">
+                        <div class="user">
+                            <!-- 用户头像&信息 -->
+                            <div class="member-bd">
+                                <!-- 头像 -->
+                                <div class="avatar-wrapper">
+                                    <a class="member-home">
+                                        <img class="member-avatar" src="./img/user/default_profile_photo.jpg" alt="">
+                                    </a>
+                                </div>
+                                <div class="member-nick-info">
+                                    <span> Hi! </span>
+                                    <strong class="member-nick">你好</strong>
+                                </div>
+                            </div>
+                            <!-- 登录 注册 开店 -->
+                            <div class="member-ft">
+                                <!-- 登录 -->
+                                <div class="member-login">
+                                    <a class="btn-login">登录</a>
+                                </div>
+                                <!-- 注册 -->
+                                <div class="member-register">
+                                    <a class="btn-register">注册</a>
+                                </div>
+                                <!-- 开店 -->
+                                <div class="member-open">
+                                    <a class="btn-open">开店</a>
+                                </div>
+                            </div>
+                            <!-- 功能栏:宝贝收藏,买过的店,收藏的店,我的足迹 -->
+                            <div class="user-mytao">
+                                <div class="mytao-content">
+                                    <a class="mytao-collectitem">
+                                        <span class="tb-ifont mytao-icon">⚓</span>
+                                        <p>宝贝收藏</p>
+                                    </a>
+                                </div>
+                                <div class="mytao-content">
+                                    <a class="mytao-boughtshop">
+                                        <span class="tb-ifont mytao-icon boughtshop-icon">💰</span>
+                                        <p>买过的店</p>
+                                    </a>
+                                </div>
+                                <div class="mytao-content">
+                                    <a class="mytao-collectshop">
+                                        <span class="tb-ifont mytao-icon">💓</span>
+                                        <p>收藏的店</p>
+                                    </a>
+                                </div>
+                                <div class="mytao-content">
+                                    <a class="mytao-history">
+                                        <span class="tb-ifont mytao-icon">⌛</span>
+                                        <p>我的足迹</p>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- 用户提示 -->
+                            <div class="user-tipmain">
+                                <div class="user-tip" style="width: 252px; overflow: hidden; height: 18px;">
+                                    <div class="notice-tip">热点</div>
+                                    <p>淘宝平台打击流量造假、黑公关、网络水军公告</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- 推荐——"猜你喜欢" -->
+        <div class="recommend J_Module">
+            <!-- 推荐标头 -->
+            <div class="recommend-title">
+                <span @click="AddRecItem" style="cursor: pointer;" title="点击 展开/收起">猜你喜欢</span>
+                <img src="./img/innerElement/recommend.png" title="个性推荐">
+            </div>
+
+            <!-- 推荐项目 -->
+            <div class="recommend-content clearfix">
+                <ul>
+                    <li v-show="recommendItems.length && isShow" @click="deliverId(item.goods_id)"
+                        v-for="item in recommendItems" :key="item.goods_id"
+                        class="recommend-content-item">
+                        <a class="item-link">
+                            <div class="img-wrapper">
+                                <img :src="item.goods_big_logo">
+                            </div>
+                            <div class="info-wrapper">
+                                <!-- 商品名称 -->
+                                <div class="title">
+                                    {{item.goods_name}}
+                                </div>
+                            </div>
+                            <div class="price-wrapper">
+                                <span class="price-value">
+                                    <em>￥</em>
+                                    {{item.goods_price}}
+                                </span>
+                            </div>
+                        </a>
+
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+
+</body>
+
+<script>
+
+    //关闭 Vue 的生产提示
+    Vue.config.productionTip = false
+
+    //创建 vm 实例
+    const vm = new Vue({
+        el: '#root',
+        data() {
+            return {
+                isShow: 0,
+                searchInfo:"", //存放搜索框内容
+                isSearching:false,
+                carouselImg: [], //存放轮播图地址（字符串）
+                timer: null, //定时器
+                currentIndex: 0, //轮播图当前序列号
+                recommendItems: [], //存放推荐项目（键值对）
+                addAniClass: '', //当图片改变时追加class属性，并播放动画
+                pauseBtn:{
+                    pause:false,
+                    btnTimer: null,
+                    opacity: 1,
+                    increment: false
+                },
+                ifShow: false, //判断是否需要展示
+                desCateIn:0, //目标项目序号
+                allCate: [],
+                // allCateChildren: [],
+                // allMinCate:[],
+                checkCateFocus:{
+                    cateTimer:null,
+                    isFocus:false,
+                    timeLeft: 1
+                },
+                isPending:false, //判断是否在请求过程，否则取消重复请求
+            }
+        },
+        computed: {
+            //上一张图
+            preImage() {
+                if (this.carouselImg.length !== 0) {
+                    if (this.currentIndex === 0) {
+                        return this.carouselImg.length - 1
+                    } else {
+                        return this.currentIndex -1
+                    }
+                } else {
+                    return -1
+                }
+
+            },
+            //下一张图
+            nextImage() {
+                if (this.carouselImg.length !== 0) {
+                    if (this.currentIndex === this.carouselImg.length - 1) {
+                        return 0
+                    } else {
+                        return this.currentIndex + 1
+                    }
+                } else {
+                    return -1
+                }
+            }
+        },
+        methods: {
+            //搜索
+            search(){
+                //向localStorage中存入信息
+                localStorage.setItem('query',JSON.stringify(this.searchInfo))
+            },
+            searchFocus(){
+                this.$refs.searchBox.focus()
+            },
+            //input框焦点处理
+            searchIn(){
+                this.isSearching = true
+            },
+            searchOut(){
+                this.isSearching = false
+            },
+            //上传商品id
+            deliverId(goods_id){
+                localStorage.setItem('goods_id',JSON.stringify(goods_id))
+            },
+            // 添加推荐项目
+            AddRecItem() {
+                // 判断是否需要发送请求
+                if (this.recommendItems.length === 0) {
+                    axios.get('https://api-hmugo-web.itheima.net/api/public/v1/goods/search', {
+                        params: {
+                            query: '推荐'
+                        }
+                    }).then(res => {
+                        // console.log(res)
+                        let items = res.data.message.goods
+                        //项目乱序，实现随机
+                        items.sort(function(){return Math.random()-0.5})
+                        items = items.slice(0,15)
+                        items.forEach(item => {
+                            if (item.goods_big_logo === "") {
+                                item.goods_big_logo = "./img/errorCmd/image_not_found.png"
+                            }
+                            this.recommendItems.push(item)
+                        })
+                    }).catch(err => {
+                        console.log(err)
+                    })
+                }
+                console.log('推荐项目', this.recommendItems)
+                //控制“猜你喜欢” 折叠/展开
+                this.isShow = !this.isShow
+            },
+            //创建轮播图
+            createCarouseImg() {
+                axios.get('https://api-hmugo-web.itheima.net/api/public/v1/home/swiperdata')
+                    .then(res => {
+                        // console.log(res)
+                        let items = res.data.message
+                        items.forEach(item => {
+                            this.carouselImg.push(item.image_src)
+                        });
+                    }).catch(err => {
+                        console.log(err)
+                    })
+                console.log('轮播图', this.carouselImg)
+            },
+            //轮播图切换
+            switchImage(index) {
+                this.currentIndex = index //此处进行currentIndex值的修改
+            },
+            gotoPreImg(){
+                this.switchImage(this.preImage)
+                this.addAniClass = 'go-back-image'
+                setTimeout(() => {
+                    this.addAniClass = ''
+                }, 1000);
+            },
+            gotoNextImg(){
+                this.switchImage(this.nextImage)
+                this.addAniClass = 'go-next-image'
+                setTimeout(() => {
+                    this.addAniClass = ''
+                }, 1000);
+            },
+            stopChangeImg(){
+                clearInterval(this.timer)
+                this.pauseBtn.pause = true
+                this.pauseBtn.btnTimer = setInterval(() => {
+                    if(!this.pauseBtn.increment){
+                        this.pauseBtn.opacity -= 0.004
+                    }else{
+                        this.pauseBtn.opacity += 0.004
+                    }
+                    if(this.pauseBtn.opacity <= 0 || this.pauseBtn.opacity >= 1)this.pauseBtn.increment = !this.pauseBtn.increment
+                }, 10);
+            },
+            //获取分类
+            getAllCate(){
+                if(this.allCate.length === 0 && !this.isPending){
+                    this.isPending = true
+                    axios.get('https://api-hmugo-web.itheima.net/api/public/v1/categories'
+                    ).then(res => {
+                        // console.log(res)
+                        this.allCate = [] //重新更新allCate中数据
+                        let items = res.data.message
+                        items.forEach(item => {
+                            this.allCate.push({
+                                id: item.cat_id,
+                                name: item.cat_name,
+                                children: item.children
+                            })
+                            /* if(!item.children)return
+                            else{
+                                item.children.forEach(child => {
+                                    this.allCateChildren.push({
+                                        id: child.cat_id,
+                                        name: child.cat_name,
+                                        children: child.children
+                                    })
+                                    if(!child.children)return
+                                    else{
+                                        child.children.forEach(minItem => {
+                                            this.allMinCate.push({
+                                                id: minItem.cat_id,
+                                                name: minItem.cat_name,
+                                            })
+                                        })
+                                    }   
+                                })
+                            } */
+                        });
+                        this.isPending = false
+                        this.splitCate()
+                    }).catch(err => {
+                        console.log(err)
+                        //防止请求失败时由于缺少数据无法正常渲染
+                        this.allCate.push({
+                            id:"",name:"",children:""
+                        })
+                    })
+                }
+            },
+            //分类截取
+            splitCate(){
+                this.allCate = this.allCate.slice(0,8)
+                this.allCate.forEach(item => {
+                    if(item.children){
+                        item.children = item.children.slice(0,8)
+                        item.children.forEach(secItem => {
+                            if(secItem.children){
+                                secItem.children = secItem.children.slice(0,8)
+                                secItem.children.forEach(thiItem => {
+                                    if(thiItem.children){
+                                        thiItem.children.slice(0,8)
+                                    }else{
+                                        return
+                                    }
+                                })
+                            }else{
+                                return
+                            }
+                        });
+                    }else{
+                        return
+                    }
+                });
+                console.log('所有分类条目',this.allCate)
+                
+            },
+            //分类展示
+            displayAllCate(){
+                this.checkCateFocus.isFocus = true
+            },
+            closeCate(){
+                this.checkCateFocus.isFocus = false
+            },
+            //展示目标分类
+            showDesCate(id){
+                let array = this.allCate
+                let n = 0
+                array.forEach(item => {
+                    if(item.id === id){
+                        this.desCateIn = n
+                    }
+                    n++
+                });
+                // console.log('@@@@',this.desCateIn)
+            }
+        },
+        beforeMount() {
+            //获取所有分类
+            this.getAllCate()
+            //页面载入前给出推荐
+            this.AddRecItem()
+        },
+        mounted() {
+            //加载轮播图
+            this.createCarouseImg()
+            //定时器
+            this.timer = setInterval(() => {
+                this.switchImage(this.nextImage)
+                this.addAniClass = 'enter-image'
+                setTimeout(() => {
+                    this.addAniClass = ''
+                }, 1000);
+                setTimeout(() => {
+                    this.addAniClass = 'leave-image'
+                }, 9000);
+            }, 10000);
+            //关闭所有分类（延迟功能）
+            this.$nextTick(() => {
+                this.cateTimer = setInterval(() => {
+                    if(this.checkCateFocus.timeLeft>0){
+                        if(!this.checkCateFocus.isFocus){
+                            this.checkCateFocus.timeLeft -= 0.05
+                        }else{
+                            this.ifShow = true
+                            this.checkCateFocus.timeLeft = 1
+                        }
+                    }else{
+                        this.ifShow = false
+                        this.checkCateFocus.timeLeft = 1
+                    }
+                },10)
+            })
+
+        },
+    })
+</script>
+
+</html>
