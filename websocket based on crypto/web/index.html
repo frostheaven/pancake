@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safe File Trans</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- 弹窗 -->
+    <div id="pop-window">
+        <!-- 弹窗 -->
+      <div class="pop-wrapper">
+        <div class="pop-top">
+            <span id="pop-title">提示</span>
+            <span id="pop-close-btn">&times;</span>
+        </div>
+        <div class="pop-content">
+            <div id="pop-info">
+                <!-- 内容 -->
+            </div>
+        </div>
+        <div class="pop-footer">
+            <button id="pop-check-btn">取消</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="timestamp">
+        <div class="time-header">文件快传</div>
+        <p id="time"></p>
+    </div>
+
+    <div class="main-wrapper">
+        <div class="upload-wrapper">
+            <div class="drop-upload">
+                <div id="dropArea">
+                    <span>在此拖曳上传</span>
+                </div>
+            </div>
+
+            <div class="input-upload">
+                <div class="input-container">
+                    点击 <span>选择文件</span> 进行上传
+                    <input id="fileInput" class="input-file" type="file" name="file" multiple="multiple" />
+                </div>
+            </div>
+
+        </div>
+
+        <div class="tag-wrapper">
+            <div class="tag-content">
+                <div class="tag">
+                    <div class="tag-title">
+                        简单
+                    </div>
+                    <div class="tag-detail">
+                        无需登录只需要选择想要发送的文件即可
+                    </div>
+                </div>
+                <div class="tag">
+                    <div class="tag-title">
+                        安全
+                    </div>
+                    <div class="tag-detail">
+                        采用加密算法，文件传输受到保护
+                    </div>
+                </div>
+                <div class="tag">
+                    <div class="tag-title">
+                        高效
+                    </div>
+                    <div class="tag-detail">
+                        不限文件类型，任何文件无损随心传
+                    </div>
+                </div>
+                <div class="tag">
+                    <div class="tag-title">
+                        专业
+                    </div>
+                    <div class="tag-detail">
+                        使用websocket，文件直接传输至服务器
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js" type="module"></script>
+</body>
+
+</html>
